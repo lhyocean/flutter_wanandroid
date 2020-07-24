@@ -6,6 +6,7 @@ import 'package:woandroid/pages/AboutUsPage.dart';
 import 'package:woandroid/pages/LoginPage.dart';
 import 'package:woandroid/pages/CollectPage.dart';
 import 'package:woandroid/pages/BaseState.dart';
+import 'package:woandroid/pages/ArticleDetailPage.dart';
 
 
 class MinePage extends StatefulWidget {
@@ -81,7 +82,7 @@ class MinePageState extends BaseState<MinePage> {
         size: 30,
       ),
       onTap: () {
-        gotoPage(context, new AboutUsPage());
+        gotoPage(context, new ArticleDetailPage(title: "my_git", url: "https://github.com/lhyocean/flutter_wanandroid/"));
       },
     );
 

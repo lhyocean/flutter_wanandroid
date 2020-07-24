@@ -207,7 +207,7 @@ class CollectPageState extends BaseState<CollectPage> {
 
   void _itemClick(itemData) {
     FlutterUtil.jumpToPage(context, new ArticleDetailPage(title: itemData['title'], url: itemData['link']));
-    FlutterUtil.showToast('没做呢');
+
   }
 
   void _login() {

@@ -7,6 +7,7 @@ import 'package:woandroid/view/EndLine.dart';
 import 'package:woandroid/http/Api.dart';
 import 'package:woandroid/http/HttpUtilWithCookie.dart';
 import 'package:woandroid/itemView/ArticleItem.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class ArticleListPage extends StatefulWidget {
   String id;
@@ -64,53 +65,67 @@ class ArticleListPageState extends BaseState<ArticleListPage>
     } else {
       Widget listView = new ListView.builder(
           key: new PageStorageKey(widget.id),
+          physics: AlwaysScrollableScrollPhysics(),//  保证数据较少，不到一屏幕也可以刷新数据
           itemCount: listData.length,
           controller: _controller,
-          itemBuilder: (context,i)=>buildItem(i));
-      return new RefreshIndicator(child: listView,
-          onRefresh: _pushToRefresh);
+
+          itemBuilder: (context, i) =>
+
+              AnimationConfiguration.staggeredList(
+                  position: i,
+                  duration: const Duration(milliseconds: 375),
+                  child: new SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: new FadeInAnimation(
+                          child:  buildItem(i))
+                      )
+                  )
+              );
+
+      return new RefreshIndicator(child: AnimationLimiter(child: listView), onRefresh: _pushToRefresh);
     }
   }
 
   Future<Null> _pushToRefresh() async {
     curPage = 0;
+    setState(() {
+      listData.clear();
+    });
     _getArticleList();
     return null;
   }
 
   Widget buildItem(i) {
-    var item=listData[i];
-    if(i==listData.length-1&&item.toString()==Constants.END_LINE_TAG){
+    var item = listData[i];
+    if (i == listData.length - 1 && item.toString() == Constants.END_LINE_TAG) {
       return new EndLine();
     }
-    return new ArticleItem(item);
+    return ArticleItem(item);
   }
 
   void _getArticleList() {
-    String url=Api.ARTICLE_LIST;
-    url+="$curPage/json";
-    map['cid']=widget.id;
-    HttpUtil.get(url, (data){
-      if(data !=null){
-        Map<String,dynamic> map=data;
-        var _listData=map['datas'];
-        listTotalSize=map['total'];
+    String url = Api.ARTICLE_LIST;
+    url += "$curPage/json";
+    map['cid'] = widget.id;
+    HttpUtil.get(url, (data) {
+      if (data != null) {
+        Map<String, dynamic> map = data;
+        var _listData = map['datas'];
+        listTotalSize = map['total'];
         setState(() {
-          List list1=new List();
-          if(curPage==0){
+          List list1 = new List();
+          if (curPage == 0) {
             listData.clear();
           }
           curPage++;
           list1.addAll(listData);
           list1.addAll(_listData);
-          if(list1.length>=listTotalSize){
+          if (list1.length >= listTotalSize) {
             list1.add(Constants.END_LINE_TAG);
           }
-          listData=list1;
+          listData = list1;
         });
       }
-    },params: map);
+    }, params: map);
   }
 }
-
-
