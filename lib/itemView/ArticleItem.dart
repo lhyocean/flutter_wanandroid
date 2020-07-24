@@ -111,7 +111,6 @@ class ArticleItemState extends State<ArticleItem>{
   void _itemClick(data) {
 
      FlutterUtil.jumpToPage(context, new ArticleDetailPage(title: data['title'], url: data['link']));
-     FlutterUtil.showToast('没做呢');
   }
 
   void _handleItemCollect(data) {

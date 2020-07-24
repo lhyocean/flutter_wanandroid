@@ -9,7 +9,6 @@ abstract class BaseState<E extends StatefulWidget> extends State<E>{
   void initState() {
     // TODO: implement initState
     super.initState();
-
     if(Constants.IS_DEBUG)
           print(this.widget);
   }

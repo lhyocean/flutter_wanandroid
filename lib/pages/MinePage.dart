@@ -164,12 +164,5 @@ class MinePageState extends BaseState<MinePage> {
     )
 
     );
-
-
-
-
-
-
-
   }
 }
