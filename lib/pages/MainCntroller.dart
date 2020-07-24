@@ -47,7 +47,7 @@ class MainControllerState extends BaseState<MainController> with TickerProviderS
             IconButton(icon: new Icon(Icons.search),
                 onPressed: (){
               navigationKey.currentState.push(new MaterialPageRoute(builder: (context){
-                return new SearchPage();
+                return new SearchPage("");
               }));
             })
           ],
