@@ -12,5 +12,11 @@ abstract class BaseState<E extends StatefulWidget> extends State<E>{
     if(Constants.IS_DEBUG)
           print(this.widget);
   }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Text("BaseState");
+  }
   
 }
