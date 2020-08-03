@@ -6,14 +6,11 @@ class ArticleDetailPage extends StatefulWidget{
   String title;
   String url;
 
-
   ArticleDetailPage({
     Key key,
     @required this.title,
     @required this.url,
   }) : super(key: key);
-
-
 
   @override
   State<StatefulWidget> createState() {

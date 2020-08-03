@@ -137,6 +137,11 @@ class ArticleItemState extends State<ArticleItem>{
     HttpUtil.post(url, (d){
       setState(() {
         data['collect']=!data['collect'];
+        if(data['collect']){
+          FlutterUtil.showToast("收藏成功");
+        }else{
+          FlutterUtil.showToast("取消收藏");
+        }
       });
     });
 

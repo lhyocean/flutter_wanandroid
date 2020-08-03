@@ -21,6 +21,9 @@ class SearchPageState extends BaseState<SearchPage> {
   SearchPageState(this.searchStr);
   SearchListPage _searchListPage;
 
+  //  控制输入框焦点变化，当点击🔍，输入框失去焦点，从而收起键盘
+  FocusNode _contentFocusNode = FocusNode();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,8 +36,15 @@ class SearchPageState extends BaseState<SearchPage> {
   Widget build(BuildContext context) {
     TextField searchField = new TextField(
       autofocus: true,
+      focusNode: _contentFocusNode,
       decoration:
-          new InputDecoration(border: InputBorder.none, hintText: "搜索关键词"),
+          new InputDecoration(border: InputBorder.none,
+              hintText: "搜索关键词"
+              ,
+              hintStyle: TextStyle(
+                color: Colors.grey
+              )
+          ),
       controller: _editingController,
     );
 
@@ -46,6 +56,7 @@ class SearchPageState extends BaseState<SearchPage> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
+              _contentFocusNode.unfocus();
               changeContent();
             },
           ),
@@ -67,9 +78,7 @@ class SearchPageState extends BaseState<SearchPage> {
   void changeContent() {
     setState(() {
 
-      _searchListPage=new SearchListPage(new ValueKey(_editingController.text));
-
-      //
+        _searchListPage=new SearchListPage(new ValueKey(_editingController.text));
     });
   }
 }
