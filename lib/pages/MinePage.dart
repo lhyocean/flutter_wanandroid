@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:woandroid/util/FlutterUtil.dart';
 import 'package:woandroid/constant/Costants.dart';
 import 'package:woandroid/event/LoginEvent.dart';
-import 'package:woandroid/pages/AboutUsPage.dart';
 import 'package:woandroid/pages/LoginPage.dart';
 import 'package:woandroid/pages/CollectPage.dart';
 import 'package:woandroid/pages/BaseState.dart';
